@@ -19,8 +19,8 @@ public class FlinkReadWriteKafka {
         }
 
         StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();
-        env.getConfig().setRestartStrategy(RestartStrategies.fixedDelayRestart(4, 10000));
-        env.enableCheckpointing(300000); // 300 seconds
+        env.getConfig().setRestartStrategy(RestartStrategies.fixedDelayRestart(12, 10000));
+        env.enableCheckpointing(30000); // 30 seconds
         env.getConfig().setGlobalJobParameters(params);
 
         DataStream<String> messageStream = env
