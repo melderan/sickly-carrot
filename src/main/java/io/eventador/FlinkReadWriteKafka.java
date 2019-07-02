@@ -9,37 +9,37 @@ import org.apache.flink.streaming.connectors.kafka.FlinkKafkaProducer011;
 import org.apache.flink.streaming.util.serialization.SimpleStringSchema;
 
 public class FlinkReadWriteKafka {
-    public static void main(String[] args) throws Exception {
-        // Read parameters from command line
-        final ParameterTool params = ParameterTool.fromArgs(args);
+  public static void main(String[] args) throws Exception {
+    // Read parameters from command line
+    final ParameterTool params = ParameterTool.fromArgs(args);
 
-        if(params.getNumberOfParameters() < 4) {
-            System.out.println("\nUsage: FlinkReadWriteKafka --read-topic <topic> --write-topic <topic> --bootstrap.servers <kafka brokers> --group.id <groupid>");
-            return;
-        }
-
-        StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();
-        env.getConfig().setRestartStrategy(RestartStrategies.fixedDelayRestart(12, 10000));
-        env.enableCheckpointing(30000); // 30 seconds
-        env.getConfig().setGlobalJobParameters(params);
-
-        DataStream<String> messageStream = env
-                .addSource(new FlinkKafkaConsumer011<>(
-                        params.getRequired("read-topic"),
-                        new SimpleStringSchema(),
-                        params.getProperties()));
-         // Print Kafka messages to stdout - will be visible in logs
-        messageStream.print();
-
-        // If you want to perform some transformations before writing the data
-        // back to Kafka, do it here!
-
-        // Write payload back to Kafka topic
-        messageStream.addSink(new FlinkKafkaProducer011<>(
-                    params.getRequired("write-topic"),
-                    new SimpleStringSchema(),
-                    params.getProperties())).name("Write To Kafka");
-
-        env.execute("FlinkReadWriteKafka");
+    if(params.getNumberOfParameters() < 4) {
+      System.out.println("\nUsage: FlinkReadWriteKafka --read-topic <topic> --write-topic <topic> --bootstrap.servers <kafka brokers> --group.id <groupid>");
+      return;
     }
+
+    StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();
+    env.getConfig().setRestartStrategy(RestartStrategies.fixedDelayRestart(12, 300000));
+    env.enableCheckpointing(30000); // 30 seconds
+    env.getConfig().setGlobalJobParameters(params);
+
+    DataStream<String> messageStream = env
+      .addSource(new FlinkKafkaConsumer011<>(
+        params.getRequired("read-topic"),
+        new SimpleStringSchema(),
+        params.getProperties()));
+    // Print Kafka messages to stdout - will be visible in logs
+    messageStream.print();
+
+    // If you want to perform some transformations before writing the data
+    // back to Kafka, do it here!
+
+    // Write payload back to Kafka topic
+    messageStream.addSink(new FlinkKafkaProducer011<>(
+      params.getRequired("write-topic"),
+      new SimpleStringSchema(),
+      params.getProperties())).name("Write To Kafka");
+
+    env.execute("FlinkReadWriteKafka");
+  }
 }

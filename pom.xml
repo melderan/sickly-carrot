@@ -31,6 +31,8 @@ under the License.
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<flink.version>1.7.2</flink.version>
+		<scala.version>2.11</scala.version>
+		<kafka.major.version>0.11</kafka.major.version>
 	</properties>
 
 	<repositories>
@@ -60,28 +62,28 @@ under the License.
 		</dependency>
 		<dependency>
 			<groupId>org.apache.flink</groupId>
-			<artifactId>flink-table_2.11</artifactId>
+			<artifactId>flink-table_${scala.version}</artifactId>
 			<version>${flink.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.flink</groupId>
-			<artifactId>flink-streaming-java_2.11</artifactId>
+			<artifactId>flink-streaming-java_${scala.version}</artifactId>
 			<version>${flink.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.flink</groupId>
-			<artifactId>flink-streaming-scala_2.11</artifactId>
+			<artifactId>flink-streaming-scala_${scala.version}</artifactId>
 			<version>${flink.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.flink</groupId>
-			<artifactId>flink-clients_2.11</artifactId>
+			<artifactId>flink-clients_${scala.version}</artifactId>
 			<version>${flink.version}</version>
 		</dependency>
 
 		<dependency>
 			<groupId>org.apache.flink</groupId>
-			<artifactId>flink-connector-kafka-0.11_2.11</artifactId>
+			<artifactId>flink-connector-kafka-${kafka.major.version}_${scala.version}</artifactId>
 			<version>${flink.version}</version>
 		</dependency>
 	</dependencies>
@@ -102,23 +104,23 @@ under the License.
 				</dependency>
 				<dependency>
 					<groupId>org.apache.flink</groupId>
-					<artifactId>flink-table_2.10</artifactId>
+					<artifactId>flink-table_${scala.version}</artifactId>
 					<version>${flink.version}</version>
 				</dependency>
 				<dependency>
 					<groupId>org.apache.flink</groupId>
-					<artifactId>flink-streaming-java_2.10</artifactId>
+					<artifactId>flink-streaming-java_${scala.version}</artifactId>
 					<version>${flink.version}</version>
 					<scope>provided</scope>
 				</dependency>
 				<dependency>
 					<groupId>org.apache.flink</groupId>
-					<artifactId>flink-streaming-scala_2.10</artifactId>
+					<artifactId>flink-streaming-scala_${scala.version}</artifactId>
 					<version>${flink.version}</version>
 				</dependency>
 				<dependency>
 					<groupId>org.apache.flink</groupId>
-					<artifactId>flink-clients_2.10</artifactId>
+					<artifactId>flink-clients_${scala.version}</artifactId>
 					<version>${flink.version}</version>
 					<scope>provided</scope>
 				</dependency>
@@ -175,14 +177,14 @@ under the License.
 									<exclude>org.apache.flink:flink-shaded-curator-recipes</exclude>
 									<exclude>org.apache.flink:flink-core</exclude>
 									<exclude>org.apache.flink:flink-java</exclude>
-									<exclude>org.apache.flink:flink-scala_2.10</exclude>
-									<exclude>org.apache.flink:flink-runtime_2.10</exclude>
-									<exclude>org.apache.flink:flink-optimizer_2.10</exclude>
-									<exclude>org.apache.flink:flink-clients_2.10</exclude>
-									<exclude>org.apache.flink:flink-avro_2.10</exclude>
-									<exclude>org.apache.flink:flink-examples-batch_2.10</exclude>
-									<exclude>org.apache.flink:flink-examples-streaming_2.10</exclude>
-									<exclude>org.apache.flink:flink-streaming-java_2.10</exclude>
+									<exclude>org.apache.flink:flink-scala_${scala.version}</exclude>
+									<exclude>org.apache.flink:flink-runtime_${scala.version}</exclude>
+									<exclude>org.apache.flink:flink-optimizer_${scala.version}</exclude>
+									<exclude>org.apache.flink:flink-clients_${scala.version}</exclude>
+									<exclude>org.apache.flink:flink-avro_${scala.version}</exclude>
+									<exclude>org.apache.flink:flink-examples-batch_${scala.version}</exclude>
+									<exclude>org.apache.flink:flink-examples-streaming_${scala.version}</exclude>
+									<exclude>org.apache.flink:flink-streaming-java_${scala.version}</exclude>
 
 									<!-- Also exclude very big transitive dependencies of Flink
 
